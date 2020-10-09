@@ -11,8 +11,6 @@ import history from './history'
 import { Provider } from 'react-redux';
 
 
-
-
 ReactDOM.render(
     <Provider store={store}>
       <Router history={history}>

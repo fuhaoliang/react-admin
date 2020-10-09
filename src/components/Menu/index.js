@@ -1,26 +1,23 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback } from 'react';
 import { Menu } from 'antd';
 
-import { createBrowserHistory } from 'history'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { matchRoutes } from "react-router-config";
-import { routes } from '@/routes';
+import routes from '@/routes';
 
 const { SubMenu } = Menu;
 
 const AppMenu = () => {
-  const [menuRender, setMenuRender] = useState()
+  const history = useHistory()
 
-  const location = createBrowserHistory().location
-  const pageRoutes = routes
-  const defaultBranch = matchRoutes(pageRoutes, location.pathname) || []
+console.info(routes[0])
 
-  console.info('defaultBranch--->', defaultBranch, location)
+  const menuArrInit = routes[0].routes[routes[0].routes.length - 1].routes || []
 
-  const defaultSelectedKeys = defaultBranch[defaultBranch.length - 1].match.path
-  const defaultOpenKeys = defaultBranch.map(item => item.match.path)
+  const [menuArr, setMenuArr] = useState(menuArrInit)
+  const [selectedKeys, setSelectedKeys] = useState('')
+  const [openKeys, setOpenKeys] = useState([])
 
   const subMenuFn = useCallback(subObj => {
     return (
@@ -44,13 +41,29 @@ const AppMenu = () => {
     )
   }, [])
 
-  const MenFn = useCallback((menuArr) => {
-    return (
-      <Menu
-        defaultSelectedKeys={[defaultSelectedKeys]}
-        defaultOpenKeys={defaultOpenKeys}
+  useEffect(()=> {
+
+    const defaultBranch = matchRoutes(menuArr, history.location.pathname) || []
+    const defaultSelectedKeys = defaultBranch[defaultBranch.length - 1].match.path
+    const defaultOpenKeys = defaultBranch.map(item => item.match.path)
+
+    setMenuArr(menuArr)
+    setSelectedKeys(defaultSelectedKeys)
+    setOpenKeys(defaultOpenKeys)
+
+    console.info('---->', defaultBranch, defaultSelectedKeys,defaultOpenKeys )
+
+  }, [history.location.pathname, menuArr])
+
+  return(
+    <div>
+       <Menu
+        selectedKeys={[selectedKeys]}
+        openKeys={openKeys}
         mode="inline"
-        // theme="dark"
+        theme="dark"
+        onClick={ e =>  setSelectedKeys(e.key)}
+        onOpenChange={ e => setOpenKeys(e) }
       >
       {
         menuArr.map(item => {
@@ -67,49 +80,6 @@ const AppMenu = () => {
         })
       }
       </Menu>
-    )
-  }, [defaultOpenKeys, defaultSelectedKeys, subMenuFn])
-
-  // const MenFn = (menuArr) => {
-  //   return (
-  //     <Menu
-  //       defaultSelectedKeys={[defaultSelectedKeys]}
-  //       defaultOpenKeys={defaultOpenKeys}
-  //       mode="inline"
-  //       // theme="dark"
-  //     >
-  //     {
-  //       menuArr.map(item => {
-  //         const { hide, path, icon, title, routes = [] } = item
-  //         const isExistRoutes  = routes && routes.length > 0
-
-  //         if(hide) return ''
-
-  //         if(!isExistRoutes){
-  //           return <Menu.Item key={path} icon={icon}><Link to={path}>{ title }</Link></Menu.Item>
-  //         } else {
-  //           return subMenuFn(item)
-  //         }
-  //       })
-  //     }
-  //     </Menu>
-  //   )
-  // }
-
-
-
-
-  
-  useEffect(()=> {
-    console.info('---->', pageRoutes)
-    setMenuRender(MenFn(pageRoutes))
-  }, [])
-
-  return(
-    <div>
-      {
-        menuRender
-      }
     </div>
   )
 }

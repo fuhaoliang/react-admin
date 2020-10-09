@@ -1,14 +1,14 @@
 import React from 'react'
-import { Redirect } from 'react-router'
 import { renderRoutes } from 'react-router-config';
 
-const authLayout = ({ children }) => {
-  console.info('children---->', children)
+const authLayout = ({ route }) => {
+  console.info('children---->', route)
   return (
     <div>
-      { renderRoutes(children) }
-      {/* renderRoutes */}
-      {/* <Redirect from="/*" to="/a/2"></Redirect> */}
+      {  renderRoutes(route.routes) }
+      {/* {
+        1 ? renderRoutes(route.routes) : <div>无权限</div>
+      } */}
     </div>
   )
 }

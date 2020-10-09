@@ -1,4 +1,7 @@
 import './baseLayout.css';
+
+import { renderRoutes } from 'react-router-config';
+
 import React, { useState } from "react";
 import { Layout } from 'antd';
 import {
@@ -10,8 +13,8 @@ import AppMenu from '../components/Menu'
 
 const { Header, Sider, Content } = Layout;
 
-const SiderDemo = ({ children }) => {
-  console.info('children0000', children)
+
+const BaseLayout = ({ route }) => {
   const [collapsed, setCollapsed] = useState(false)
   
   const toggle = () => {
@@ -49,11 +52,11 @@ const SiderDemo = ({ children }) => {
             }}
           >
             <h2>我是content123</h2>
-            { children }
+            {renderRoutes(route.routes)}
           </Content>
         </Layout>
       </Layout>
   );
 }
 
-export default SiderDemo
+export default BaseLayout

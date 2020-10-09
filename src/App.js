@@ -1,15 +1,13 @@
 import React from 'react';
 import { renderRoutes } from 'react-router-config';
-import { routes } from './routes';
+import routes from './routes';
 import './App.css'
-
-import BaseLayout from '@/layouts/baseLayout'
 
 function App() {
   return (
-    <BaseLayout>
+    <div>
       {renderRoutes(routes)}
-    </BaseLayout>
+    </div>
   );
 }
 
