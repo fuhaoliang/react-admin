@@ -18,7 +18,7 @@ export default {
 
   effects: {
     
-    *getUserName({ payload }, { call, put }) {  // eslint-disable-line
+    *getUserName({ payload }, { call, put }) {
       yield put({ type: 'setUserName', payload: {  ...payload  } } )
     },
   },
