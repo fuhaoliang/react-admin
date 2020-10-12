@@ -11,41 +11,6 @@ import { Redirect } from "react-router-dom";
 import authLayout from '@/layouts/authLayout'
 import BaseLayout from '@/layouts/baseLayout'
 
-export const routes = [
-  {
-    path: '/',
-    exact: true,
-    hide: true,
-    render: () => <Redirect to={"/a/1"} />
-  },
-  {
-    path: '/a',
-    title: 'A页面',
-    icon: <MailOutlined />,
-    component: A,
-    routes: [
-      {
-      path: '/a/1',
-      title: 'A11页面',
-      exact: true,
-      component: A_1
-      }
-    ]
-  },
-  {
-    path: '/b',
-    title: 'B页面',
-    icon: <MailOutlined />,
-    exact: true,
-    component: dynamic({
-      app,
-      component: () => import(/* webpackChunkName: "B" */ '@/containers/B'),
-      models: () => [import(/* webpackChunkName: "B" */ '../src/models/example')],
-    })
-  },
-]
-
-
 export default [{
   component: authLayout,
   routes: [
@@ -56,14 +21,14 @@ export default [{
     },
     {
       path: '/',
+      hide:true,
+      exact: true,
+      render: () => <Redirect to={"/a/1"} />
+    },
+    {
+      path: '/',
       component: BaseLayout,
       routes: [
-        {
-          path: '/',
-          hide:true,
-          exact: true,
-          render: () => <Redirect to={"/a/1"} />
-        },
         {
           path: '/a',
           title: 'A页面',
@@ -71,10 +36,10 @@ export default [{
           component: A,
           routes: [
             {
-            path: '/a/1',
-            title: 'A11页面',
-            exact: true,
-            component: A_1
+              path: '/a/1',
+              title: 'A11页面',
+              exact: true,
+              component: A_1
             }
           ]
         },
@@ -90,6 +55,6 @@ export default [{
           })
         },
       ]
-    }
+    },
   ]
 }]

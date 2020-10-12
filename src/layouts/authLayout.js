@@ -1,8 +1,8 @@
 import React from 'react'
-import { renderRoutes } from 'react-router-config';
+import { renderRoutes } from '@/plugins/react-router-config';
 
 const authLayout = ({ route }) => {
-  console.info('children---->', route)
+  console.info('authLayout---->', route.routes)
   return (
     <div>
       {  renderRoutes(route.routes) }

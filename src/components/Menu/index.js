@@ -3,7 +3,7 @@ import { Menu } from 'antd';
 
 import { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { matchRoutes } from "react-router-config";
+import { matchRoutes } from "@/plugins/react-router-config";
 import routes from '@/routes';
 
 const { SubMenu } = Menu;

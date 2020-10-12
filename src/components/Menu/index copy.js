@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from 'react'
 import { connect } from 'dva'
 import { Link } from 'react-router-dom'
-import { matchRoutes } from "react-router-config";
+import { matchRoutes } from "@/plugins/react-router-config";
 import { routes } from '../../router.js'
 
 const { SubMenu } = Menu;

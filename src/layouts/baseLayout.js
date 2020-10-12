@@ -1,6 +1,6 @@
 import './baseLayout.css';
 
-import { renderRoutes } from 'react-router-config';
+import { renderRoutes } from '@/plugins/react-router-config';
 
 import React, { useState } from "react";
 import { Layout } from 'antd';
