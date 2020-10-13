@@ -1,83 +1,85 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Menu } from 'antd';
-import { Link, useHistory } from 'react-router-dom'
-import { matchRoutes } from "@/plugins/react-router-config";
+import { Link, useHistory } from 'react-router-dom';
+import { matchRoutes } from '@/plugins/react-router-config';
 import routes from '@/routes';
 
 const { SubMenu } = Menu;
 
 const AppMenu = () => {
-  const history = useHistory()
+  const history = useHistory();
 
-console.info(routes[0])
+  console.info(routes[0]);
 
-  const menuArrInit = routes[0].routes[routes[0].routes.length - 1].routes || []
+  const menuArrInit = routes[0].routes[routes[0].routes.length - 1].routes || [];
 
-  const [menuArr, setMenuArr] = useState(menuArrInit)
-  const [selectedKeys, setSelectedKeys] = useState('')
-  const [openKeys, setOpenKeys] = useState([])
+  const [menuArr, setMenuArr] = useState(menuArrInit);
+  const [selectedKeys, setSelectedKeys] = useState('');
+  const [openKeys, setOpenKeys] = useState([]);
 
-  const subMenuFn = useCallback(subObj => {
+  const subMenuFn = useCallback((subObj) => {
     return (
       <SubMenu key={subObj.path} title={subObj.title} icon={subObj.icon}>
-        {
-          subObj.routes.map(item => {
-            const { hide, path, icon, title, routes = [] } = item
+        {subObj.routes.map((item) => {
+          const { hide, path, icon, title, routes = [] } = item;
 
-            const isExistRoutes = routes && routes.length > 0
+          const isExistRoutes = routes && routes.length > 0;
 
-            if(hide) return ''
+          if (hide) return '';
 
-            if(!isExistRoutes){
-              return <Menu.Item key={path} icon={icon}><Link to={path}>{ title }</Link></Menu.Item>
-            } else {
-              return subMenuFn(item)
-            }
-          })
-        }
+          if (!isExistRoutes) {
+            return (
+              <Menu.Item key={path} icon={icon}>
+                <Link to={path}>{title}</Link>
+              </Menu.Item>
+            );
+          } else {
+            return subMenuFn(item);
+          }
+        })}
       </SubMenu>
-    )
-  }, [])
+    );
+  }, []);
 
-  useEffect(()=> {
+  useEffect(() => {
+    const defaultBranch = matchRoutes(menuArr, history.location.pathname) || [];
+    const defaultSelectedKeys = defaultBranch[defaultBranch.length - 1].match.path;
+    const defaultOpenKeys = defaultBranch.map((item) => item.match.path);
 
-    const defaultBranch = matchRoutes(menuArr, history.location.pathname) || []
-    const defaultSelectedKeys = defaultBranch[defaultBranch.length - 1].match.path
-    const defaultOpenKeys = defaultBranch.map(item => item.match.path)
+    setMenuArr(menuArr);
+    setSelectedKeys(defaultSelectedKeys);
+    setOpenKeys(defaultOpenKeys);
+  }, [history.location.pathname, menuArr]);
 
-    setMenuArr(menuArr)
-    setSelectedKeys(defaultSelectedKeys)
-    setOpenKeys(defaultOpenKeys)
-
-  }, [history.location.pathname, menuArr])
-
-  return(
+  return (
     <div>
-       <Menu
+      <Menu
         selectedKeys={[selectedKeys]}
         openKeys={openKeys}
         mode="inline"
         theme="dark"
-        onClick={ e =>  setSelectedKeys(e.key)}
-        onOpenChange={ e => setOpenKeys(e) }
+        onClick={(e) => setSelectedKeys(e.key)}
+        onOpenChange={(e) => setOpenKeys(e)}
       >
-      {
-        menuArr.map(item => {
-          const { hide, path, icon, title, routes = [] } = item
-          const isExistRoutes  = routes && routes.length > 0
+        {menuArr.map((item) => {
+          const { hide, path, icon, title, routes = [] } = item;
+          const isExistRoutes = routes && routes.length > 0;
 
-          if(hide) return ''
+          if (hide) return '';
 
-          if(!isExistRoutes){
-            return <Menu.Item key={path} icon={icon}><Link to={path}>{ title }</Link></Menu.Item>
+          if (!isExistRoutes) {
+            return (
+              <Menu.Item key={path} icon={icon}>
+                <Link to={path}>{title}</Link>
+              </Menu.Item>
+            );
           } else {
-            return subMenuFn(item)
+            return subMenuFn(item);
           }
-        })
-      }
+        })}
       </Menu>
     </div>
-  )
-}
+  );
+};
 
-export default AppMenu
+export default AppMenu;

@@ -1,10 +1,8 @@
-
 export default {
-
   namespace: 'example',
 
   state: {
-    number: 1234
+    number: 1234,
   },
 
   subscriptions: {
@@ -23,5 +21,4 @@ export default {
       return { ...state, ...action.payload };
     },
   },
-
 };

@@ -1,25 +1,20 @@
-
 import { create } from 'dva-core';
 import createLoading from 'dva-loading';
 import { createLogger } from 'redux-logger';
-import { routerMiddleware } from 'connected-react-router'
+import { routerMiddleware } from 'connected-react-router';
 import { connectRouter } from 'connected-react-router';
-import history from './history'
+import history from './history';
 
-import appModel from '@/models/app'
-
+import appModel from '@/models/app';
 
 const logerMiddleware = createLogger();
 
-export const app = create(
-  {
-    onAction: [logerMiddleware, routerMiddleware(history)],
-    extraReducers: {
-      history: connectRouter(history),
-    },
+export const app = create({
+  onAction: [logerMiddleware, routerMiddleware(history)],
+  extraReducers: {
+    history: connectRouter(history),
   },
-  
-);
+});
 
 const models = [appModel];
 

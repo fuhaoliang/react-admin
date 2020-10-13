@@ -47,6 +47,14 @@
   },
   "devDependencies": {
     "customize-cra": "^1.0.0",
-    "react-app-rewired": "^2.1.6"
+    "eslint": "^6.6.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.1.2",
+    "react-app-rewired": "^2.1.6",
+    "stylelint": "^13.7.2",
+    "stylelint-config-recess-order": "^2.1.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-order": "^4.1.0",
+    "stylelint-webpack-plugin": "^2.1.0"
   }
 }

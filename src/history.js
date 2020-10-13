@@ -4,4 +4,4 @@ const history = createBrowserHistory({
   basename: '/',
 });
 
-export default history
+export default history;

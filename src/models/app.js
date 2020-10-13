@@ -1,13 +1,12 @@
 // import { delay } from 'dva';
 
-
 // const delay = (ms) => new Promise((resolve, reject) => setTimeout(resolve, ms));
 
 export default {
   namespace: 'app',
 
   state: {
-    username: '12345'
+    username: '12345',
   },
 
   reducers: {
@@ -17,9 +16,8 @@ export default {
   },
 
   effects: {
-    
     *getUserName({ payload }, { call, put }) {
-      yield put({ type: 'setUserName', payload: {  ...payload  } } )
+      yield put({ type: 'setUserName', payload: { ...payload } });
     },
   },
 };
