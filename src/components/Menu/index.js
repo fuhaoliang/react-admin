@@ -1,7 +1,5 @@
-import React, { useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Menu } from 'antd';
-
-import { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { matchRoutes } from "@/plugins/react-router-config";
 import routes from '@/routes';
@@ -50,8 +48,6 @@ console.info(routes[0])
     setMenuArr(menuArr)
     setSelectedKeys(defaultSelectedKeys)
     setOpenKeys(defaultOpenKeys)
-
-    console.info('---->', defaultBranch, defaultSelectedKeys,defaultOpenKeys )
 
   }, [history.location.pathname, menuArr])
 

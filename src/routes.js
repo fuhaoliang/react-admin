@@ -8,14 +8,14 @@ import { MailOutlined } from '@ant-design/icons';
 import { Redirect } from "react-router-dom";
 
 // layout
-import authLayout from '@/layouts/authLayout'
+import RootLayout from '@/layouts/RootLayout'
 import BaseLayout from '@/layouts/baseLayout'
 
 export default [{
-  component: authLayout,
+  component: RootLayout,
   routes: [
     {
-      path: '/abc',
+      path: '/login',
       exact: true,
       render: () => <div>123456</div>
     },
@@ -36,7 +36,7 @@ export default [{
           component: A,
           routes: [
             {
-              path: '/a/1',
+              path: '/a/:1',
               title: 'A11页面',
               exact: true,
               component: A_1
